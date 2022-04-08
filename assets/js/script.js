@@ -27,14 +27,27 @@ $(document).ready(function(){
     $("#hour-3 .description").val(localStorage.getItem("hour-3"))
     $("#hour-4 .description").val(localStorage.getItem("hour-4"))
     $("#hour-5 .description").val(localStorage.getItem("hour-5"))
+
+    timeColor()
 })
 
 /*changes each hour row color to resemble real time----------------------------------*/
 
 function timeColor (){
-var currentTime = moment().format("ha");
-var timebox = $(this).parent().attr("class")
+    var currentTime = moment().format("kk");
+    console.log($("textArea")[0])
 
-if (currentTime === timebox){
-
+    $("container").each(function(){
+        console.log(this)
+        var timebox = $(this).attr("class").split(" ")[1]
+        if (currentTime == timebox){
+            $(this).children("textArea").addClass("present")
+        }
+        else if (currentTime < timebox){
+            $(this).children("textArea").addClass("future")    
+        }
+        else {
+            $(this).children("textArea").addClass("past")    
+        }
+    })
 }
